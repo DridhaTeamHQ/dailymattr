@@ -1,0 +1,15 @@
+/* Homepage keyframes. Everything else on the page is Tailwind utilities on
+ * the elements; these are used through arbitrary values, e.g.
+ * animate-[giant-words-marquee_22s_linear_infinite]. */
+
+/* failsafe for the intro curtain: if the choreography never runs, the
+ * curtain would cover the page forever — hide it after 15s */
+@keyframes intro-failsafe {
+  to { visibility: hidden; }
+}
+
+/* "READ. WATCH. LISTEN." drifting behind the showcase */
+@keyframes giant-words-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

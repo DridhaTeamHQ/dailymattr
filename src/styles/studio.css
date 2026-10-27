@@ -1,0 +1,120 @@
+/* News Studio base styles — what its old index.css and Tailwind v3
+ * preflight gave it, scoped to the studio so nothing reaches the marketing
+ * pages that now share the document:
+ *   - [data-studio] wraps every studio page (app/news-studio/layout.tsx)
+ *   - html:has([data-studio]) for what lives on the root element (smooth
+ *     scrolling, scroll padding, the page scrollbar)
+ * Everything sits in the base layer, so utilities always win, exactly as
+ * they did over v3's base. The layer order statement just pins the order
+ * globals.css already set. */
+@layer theme, base, components, utilities;
+
+@layer base {
+  html:has([data-studio]) {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+    /* NOTE: never put `transform` on <html> — it breaks position:fixed (the nav) */
+  }
+
+  /* the marketing pages clip horizontal overflow on <body>; the studio never did */
+  body:has([data-studio]) {
+    overflow-x: visible;
+  }
+
+  /* --- Tailwind v3 preflight, where v4 differs --- */
+
+  /* default border colour: v3 gray-200, v4 currentColor */
+  [data-studio] :where(*, ::before, ::after, ::backdrop, ::file-selector-button) {
+    border-color: #e5e7eb;
+  }
+  /* placeholder colour: v3 gray-400, v4 half of currentColor */
+  [data-studio] :where(input, textarea)::placeholder {
+    color: #9ca3af;
+  }
+  /* buttons kept the pointer cursor in v3 */
+  [data-studio] :where(button, [role="button"]) {
+    cursor: pointer;
+  }
+  [data-studio] :disabled {
+    cursor: default;
+  }
+
+  /* --- index.css --- */
+
+  [data-studio]::selection,
+  [data-studio] ::selection {
+    background: #141417;
+    color: #ffffff;
+  }
+
+  /* slim neutral thumb, invisible track — the page scrollbar too */
+  html:has([data-studio]),
+  [data-studio],
+  [data-studio] * {
+    scrollbar-width: thin;
+    scrollbar-color: #b8b8c0 transparent;
+  }
+  html:has([data-studio])::-webkit-scrollbar,
+  [data-studio]::-webkit-scrollbar,
+  [data-studio] *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  html:has([data-studio])::-webkit-scrollbar-track,
+  [data-studio]::-webkit-scrollbar-track,
+  [data-studio] *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  html:has([data-studio])::-webkit-scrollbar-thumb,
+  [data-studio]::-webkit-scrollbar-thumb,
+  [data-studio] *::-webkit-scrollbar-thumb {
+    background: #b8b8c0;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    border-radius: 999px;
+  }
+  html:has([data-studio])::-webkit-scrollbar-thumb:hover,
+  [data-studio]::-webkit-scrollbar-thumb:hover,
+  [data-studio] *::-webkit-scrollbar-thumb:hover {
+    background: #6b6b73;
+    background-clip: padding-box;
+  }
+  html:has([data-studio])::-webkit-scrollbar-corner,
+  [data-studio]::-webkit-scrollbar-corner,
+  [data-studio] *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+/* Skeleton shimmer. Unlayered, as in index.css, so they sit over utilities
+ * the same way they did. */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+[data-studio] .skeleton-shimmer {
+  background: linear-gradient(90deg, #f2f2f7 0%, #e5e5ea 50%, #f2f2f7 100%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s ease-in-out infinite;
+}
+
+[data-studio] .skeleton-shimmer-dark {
+  background: linear-gradient(90deg, #e5e5ea 0%, #d1d1d6 50%, #e5e5ea 100%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s ease-in-out infinite;
+}
+
+/* the breaking ticker's marquee (components/studio/front-page.tsx) */
+@keyframes lm-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

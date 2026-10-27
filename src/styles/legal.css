@@ -1,0 +1,7 @@
+/* Long-form pages (about, author, editorial guidelines, privacy, terms).
+ * Everything else is Tailwind on the elements; this only holds the hero's
+ * entrance keyframes, used as animate-[legal-rise_…] in hero.tsx. */
+@keyframes legal-rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: none; }
+}

@@ -1,0 +1,73 @@
+/* Site-wide constants shared by every page and the /news + News Studio
+ * renderers: nav items, store links, brand strings. */
+
+/* The canonical host is www — Vercel redirects the apex to it — so every
+ * canonical, og:url, JSON-LD url and sitemap entry must say www too, or they
+ * all point at a redirect. Override with SITE_ORIGIN if the primary domain
+ * ever changes. */
+export const ORIGIN = (process.env.SITE_ORIGIN || "https://www.dailymattr.com").replace(/\/+$/, "");
+export const SITE_NAME = "dailymattr";
+export const SOCIAL_URLS = [
+  "https://www.instagram.com/dailymattr/",
+  "https://youtube.com/@dailymattr",
+  "https://x.com/dailymattr_news",
+  "https://www.linkedin.com/company/dailymattr/",
+  "https://www.facebook.com/profile.php?id=61595620943543",
+];
+/* the byline on every story, and NewsArticle.author */
+export const AUTHOR = { name: "dailymattr Editorial Team", path: "/author/dailymattr-editorial-team/" };
+export const LEGAL_NAME = "Dridha Technologies Private Limited";
+export const SUPPORT_EMAIL = "support@dailymattr.com";
+export const PLAY_URL =
+  "https://play.google.com/store/apps/details?id=com.dailymattr&pcampaignid=web_share";
+export const APP_STORE_URL =
+  "https://apps.apple.com/in/app/dailymattr/id6791996138";
+export const DOWNLOAD_URL = "https://www.dailymattr.com/download";
+/* the Google tag; loaded by the marketing and /news layouts only */
+export const GA_ID = "G-JBLS1RTH1N";
+
+/* rectangular raster logo for NewsArticle.publisher — Google rejects SVG
+ * and square marks here. The file is supplied by the design team. */
+export const PUBLISHER_LOGO = { url: `${ORIGIN}/assets/publisher-logo.png`, width: 1560, height: 320 };
+export const OG_DEFAULT = { url: `${ORIGIN}/assets/og-default.jpg`, width: 1200, height: 630 };
+
+/* the site nav, in order. `home` is the in-page anchor used on the homepage
+ * itself; everywhere else the link goes to the homepage section. */
+export const NAV: { href: string; home?: string; label: string }[] = [
+  { href: "/", home: "#top", label: "Home" },
+  { href: "/#showcase", home: "#showcase", label: "What we do" },
+  { href: "/#features", home: "#features", label: "Our features" },
+  { href: "/news/", label: "News" },
+  { href: "/newsletter/", label: "Newsletter" },
+  { href: "/support/", label: "Support" },
+];
+
+/* Where the rendered Pix carousel pages live. The CMS records them on
+ * shortly-bucket.s3.ap-south-1.amazonaws.com, which is private — a plain GET
+ * returns AccessDenied — so they cannot be shown on the public web as-is.
+ *
+ * Set PIX_MEDIA_CDN to a public host that serves the same keys (a CloudFront
+ * distribution in front of the bucket, or the bucket itself once
+ * processed/* is public) and every carousel page appears with no code
+ * change. Until then the poster, which the CMS also uploads to the public
+ * Supabase bucket, is shown on its own. */
+export const MEDIA_ORIGIN = "shortly-bucket.s3.ap-south-1.amazonaws.com";
+export const MEDIA_CDN = (process.env.PIX_MEDIA_CDN || "").replace(/^https?:\/\//, "").replace(/\/+$/, "");
+
+/* Only these hosts may appear in <img src> / og:image — every URL comes from
+ * the CMS database and is treated as untrusted. */
+export const IMAGE_HOSTS = new Set<string>([
+  "coggfnbqqyiqfsxvtaym.supabase.co",
+  ...(MEDIA_CDN ? [MEDIA_CDN] : []),
+]);
+
+/* Supabase serves resized WebP from the same object through its render
+ * endpoint: the 2.7 MB source PNG comes back at ~52 KB for a 320px card. */
+export const IMAGE_WIDTHS = { thumb: [320, 480], slide: [480, 920] };
+
+/* Pix carousel pages are always exported at this size */
+export const SLIDE_W = 920;
+export const SLIDE_H = 1700;
+
+export const PAGE_SIZE = 30;
+export const TIME_ZONE = "Asia/Kolkata";

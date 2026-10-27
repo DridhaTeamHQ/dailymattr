@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# build output
+.next/
+out/
+next-env.d.ts
+
+# local tooling / editor
+.claude/
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# logs & env
+*.log
+.env
+.env.*
+!.env.example
+
+# dev-only Pix sample used when the service-role key is absent
+src/lib/news/_data/pix-snapshot.json
+
+*.tsbuildinfo

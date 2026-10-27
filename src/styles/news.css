@@ -1,0 +1,20 @@
+/* The /news pages are styled with Tailwind utilities in their components;
+ * this file holds only what utilities can't express: the app prompt's
+ * keyframes, used as animate-[gate-in_…] and friends. */
+
+@keyframes gate-fade {
+  from { opacity: 0; }
+}
+
+@keyframes gate-rise {
+  from { opacity: 0; transform: translateY(26px) scale(.94); }
+}
+
+@keyframes gate-in {
+  from { opacity: 0; transform: translateY(14px); }
+}
+
+/* on a phone the prompt arrives as a sheet from the bottom edge */
+@keyframes gate-sheet {
+  from { opacity: 0; transform: translateY(100%); }
+}

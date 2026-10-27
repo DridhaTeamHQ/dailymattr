@@ -1,0 +1,42 @@
+/* Keyframes for /newsletter and /support. Everything else on those pages is
+ * Tailwind utilities on the elements; the animate-[name_…] classes there
+ * refer to these names. */
+
+/* /newsletter: doodles pop in at their own rotation (--rot), the squiggle
+ * fades in, the headline and card rise */
+@keyframes nl-pop {
+  to { opacity: 1; transform: rotate(var(--rot, 0deg)) scale(1); }
+}
+@keyframes nl-fade {
+  to { opacity: 1; }
+}
+@keyframes nl-rise {
+  to { opacity: 1; transform: none; }
+}
+
+/* /support */
+@keyframes support-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes support-button-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(60, 123, 255, .18); }
+  50% { box-shadow: 0 0 0 7px rgba(60, 123, 255, .08); }
+}
+@keyframes support-logo-pop {
+  0% { opacity: 0; transform: scale(.55) rotate(-8deg); }
+  70% { opacity: 1; transform: scale(1.08) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+@keyframes support-ring {
+  from { opacity: 0; transform: scale(.55); }
+  to { opacity: 1; transform: scale(1); }
+}
+/* the topic menu: was an opacity/transform transition on .is-open; the
+ * shadcn Select mounts and unmounts it, so it fades in and out instead */
+@keyframes support-topic-in {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+@keyframes support-topic-out {
+  to { opacity: 0; transform: translateY(-6px); }
+}

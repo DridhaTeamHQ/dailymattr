@@ -1,0 +1,4 @@
+# the dev-only Pix sample written by scripts/pull-pix-snapshot.mjs: CMS data,
+# never committed
+*
+!.gitignore
